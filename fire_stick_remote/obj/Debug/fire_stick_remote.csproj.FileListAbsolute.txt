@@ -1,0 +1,8 @@
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\obj\Debug\fire_stick_remote.csprojResolveAssemblyReference.cache
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\obj\Debug\fire_stick_remote.Form1.resources
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\obj\Debug\fire_stick_remote.Properties.Resources.resources
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\obj\Debug\fire_stick_remote.csproj.GenerateResource.Cache
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\bin\Debug\fire_stick_remote.exe
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\bin\Debug\fire_stick_remote.pdb
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\obj\Debug\fire_stick_remote.exe
+C:\Users\bradley\Documents\GitHub\fire_stick_remote\fire_stick_remote\obj\Debug\fire_stick_remote.pdb
