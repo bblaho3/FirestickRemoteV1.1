@@ -10,7 +10,7 @@ namespace fire_stick_remote
 {
     public partial class Form1 : Form
     {
-        Dictionary<string, string> shell_commands_dict;
+        Dictionary<string, string> shell_commands_dict = new Dictionary<string, string>();
         bool playing;
         public void call_cmd(string key_code)
         {
@@ -36,7 +36,7 @@ namespace fire_stick_remote
             shell_commands_dict.Add("Left", "shell input event 21");
             shell_commands_dict.Add("Right", "shell input event 22");
             shell_commands_dict.Add("Enter", "shell input event 66");
-            
+
             shell_commands_dict.Add("Play/Pause", "shell input event 85");
             shell_commands_dict.Add("Previous", "shell input event 88");
             shell_commands_dict.Add("Next", "shell input event 87");
@@ -102,6 +102,16 @@ namespace fire_stick_remote
         {
             //Play/Pause
             call_cmd(shell_commands_dict["Play/Pause"]);
+            if (playing == true)
+            {
+                button9.Text = "Play";
+            }
+            else
+            {
+                button9.Text = "Pause";
+            }
+            playing = !playing;
+
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -121,12 +131,32 @@ namespace fire_stick_remote
             switch (e.KeyCode.ToString())
             {
                 case "Up":
-
-
-
+                    call_cmd(shell_commands_dict["Up"]);
+                    break;
+                case "Down":
+                    call_cmd(shell_commands_dict["Down"]);
+                    break;
+                case "Right":
+                    call_cmd(shell_commands_dict["Right"]);
+                    break;
+                case "Left":
+                    call_cmd(shell_commands_dict["Left"]);
                     break;
                 case "Return":
-                    call_cmd("shell input keyevent 66");
+                    call_cmd(shell_commands_dict["Enter"]);
+                    break;
+
+                case "A":
+                    call_cmd(shell_commands_dict["Left"]);
+                    break;
+                case "D":
+                    call_cmd(shell_commands_dict["Right"]);
+                    break;
+                case "S":
+                    call_cmd(shell_commands_dict["Down"]);
+                    break;
+                case "W":
+                    call_cmd(shell_commands_dict["Up"]);
                     break;
 
                 default:
@@ -135,12 +165,11 @@ namespace fire_stick_remote
         }
 
 
-    protected override bool IsInputKey(Keys keyData)
+        protected override bool IsInputKey(Keys keyData)
         {
             switch (keyData)
             {
                 case Keys.Right:
-                     call_cmd("")
                 case Keys.Left:
                 case Keys.Up:
                 case Keys.Down:
@@ -152,6 +181,27 @@ namespace fire_stick_remote
                     return true;
             }
             return base.IsInputKey(keyData);
+        }
+
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                case Keys.Right:
+                case Keys.Up:
+                case Keys.Down:
+                    if (e.Shift)
+                    {
+
+                    }
+                    else
+                    {
+                    }
+                    break;
+            }
         }
     }
 }
