@@ -12,8 +12,10 @@ namespace fire_stick_remote
     {
         Dictionary<string, string> shell_commands_dict = new Dictionary<string, string>();
         bool playing;
-        public void call_cmd(string key_code)
+        public void call_cmd(string command)
         {
+            string key_code = shell_commands_dict[command];
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             process.StartInfo.FileName = "adb";
@@ -21,11 +23,17 @@ namespace fire_stick_remote
             process.StartInfo.Arguments = key_code;
             process.Start();
             process.WaitForExit();
+            log_text.Text += '\n' + command + " command sent to Firestick.";
         }
 
         public Form1()
         {
             InitializeComponent();
+            log_text.Text += "\nComponent initialized sucessfully.";
+            log_text.Text += "\nFirestick Remote (v 1.1)";
+            log_text.Text += "\n______________________________________\n";
+
+            this.KeyPreview = true;
 
             shell_commands_dict.Add("Menu", "shell input event 1");
             shell_commands_dict.Add("Home", "shell input event 3");
@@ -44,119 +52,48 @@ namespace fire_stick_remote
             playing = false;
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            //Home
-            call_cmd(shell_commands_dict["Home"]);
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            //Next
-            call_cmd(shell_commands_dict["Next"]);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //Up
-            call_cmd(shell_commands_dict["Up"]);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //Right
-            call_cmd(shell_commands_dict["Right"]);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //Down
-            call_cmd(shell_commands_dict["Down"]);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Left
-            call_cmd(shell_commands_dict["Left"]);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            //Enter
-            call_cmd(shell_commands_dict["Enter"]);
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            //Back
-            call_cmd(shell_commands_dict["Back"]);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            //Menu
-            call_cmd(shell_commands_dict["Menu"]);
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            //Play/Pause
-            call_cmd(shell_commands_dict["Play/Pause"]);
-            if (playing == true)
-            {
-                button9.Text = "Play";
-            }
-            else
-            {
-                button9.Text = "Pause";
-            }
-            playing = !playing;
-
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            //Previous
-            call_cmd(shell_commands_dict["Previous"]);
-        }
-
-        private void key_press_event(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void keyboard_input_event(object sender, KeyEventArgs e)
         {
             //MessageBox.Show(e.KeyCode.ToString());
+            
             switch (e.KeyCode.ToString())
             {
                 case "Up":
-                    call_cmd(shell_commands_dict["Up"]);
+                    button2.Focus();
+                    call_cmd("Up");
                     break;
                 case "Down":
-                    call_cmd(shell_commands_dict["Down"]);
+                    button4.Focus();
+                    call_cmd("Down");
                     break;
                 case "Right":
-                    call_cmd(shell_commands_dict["Right"]);
+                    button3.Focus();
+                    call_cmd("Right");
                     break;
                 case "Left":
-                    call_cmd(shell_commands_dict["Left"]);
+                    button1.Focus();
+                    call_cmd("Left");
                     break;
                 case "Return":
-                    call_cmd(shell_commands_dict["Enter"]);
+                    button5.Focus();
+                    call_cmd("Enter");
                     break;
 
                 case "A":
-                    call_cmd(shell_commands_dict["Left"]);
+                    call_cmd("Left");
+                    button1.Focus();
                     break;
                 case "D":
-                    call_cmd(shell_commands_dict["Right"]);
+                    call_cmd("Right");
+                    button3.Focus();
                     break;
                 case "S":
-                    call_cmd(shell_commands_dict["Down"]);
+                    call_cmd("Down");
+                    button4.Focus();
                     break;
                 case "W":
-                    call_cmd(shell_commands_dict["Up"]);
+                    call_cmd("Up");
+                    button2.Focus();
                     break;
 
                 default:
@@ -167,6 +104,7 @@ namespace fire_stick_remote
 
         protected override bool IsInputKey(Keys keyData)
         {
+            e.Handled = true;
             switch (keyData)
             {
                 case Keys.Right:
@@ -186,6 +124,7 @@ namespace fire_stick_remote
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            
             base.OnKeyDown(e);
             switch (e.KeyCode)
             {
@@ -202,6 +141,82 @@ namespace fire_stick_remote
                     }
                     break;
             }
+        }
+
+        private void up_button_event(object sender, EventArgs e)
+        {
+            //Up
+            call_cmd("Up");
+        }
+
+        private void play_pause_event(object sender, EventArgs e)
+        {
+            //Play/Pause
+            call_cmd("Play/Pause");
+            if (playing == true)
+            {
+                button9.Text = "Play";
+            }
+            else
+            {
+                button9.Text = "Pause";
+            }
+            playing = !playing;
+
+        }
+
+        private void right_button_event(object sender, EventArgs e)
+        {
+            //Right
+            call_cmd("Right");
+        }
+
+        private void down_button_event(object sender, EventArgs e)
+        {
+            //Down
+            call_cmd("Down");
+        }
+
+        private void left_button_event(object sender, EventArgs e)
+        {
+            //Left
+            call_cmd("Left");
+        }
+
+        private void back_event(object sender, EventArgs e)
+        {
+            //Back
+            call_cmd("Back");
+        }
+
+        private void home_event(object sender, EventArgs e)
+        {
+            //Home
+            call_cmd("Home");
+        }
+
+        private void next_event(object sender, EventArgs e)
+        {
+            //Next
+            call_cmd("Next");
+        }
+
+        private void enter_event(object sender, EventArgs e)
+        {
+            //Enter
+            call_cmd("Enter");
+        }
+
+        private void menu_event(object sender, EventArgs e)
+        {
+            //Menu
+            call_cmd("Menu");
+        }
+
+        private void previous_event(object sender, EventArgs e)
+        {
+            //Previous
+            call_cmd("Previous");
         }
     }
 }
